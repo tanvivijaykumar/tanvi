@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+
+int isValidEmail(char email[]) {
+    int i, atPos = -1, dotPos = -1;
+    int len = strlen(email);
+
+    for (i = 0; i < len; i++) {
+        if (email[i] == '@') {
+            if (atPos != -1)
+                return 0;
+            atPos = i;
+        } else if (email[i] == '.') {
+            if (atPos != -1)
+                dotPos = i;
+        }
+    }
+
+    if (atPos == -1 || dotPos == -1)
+        return 0;
+
+    if (atPos > dotPos)
+        return 0;
+
+    if (atPos == 0 || dotPos == len - 1)
+        return 0;
+
+    return 1;
+}
+
+int main() {
+    char email[100];
+
+    printf("Enter email: ");
+    scanf("%99s", email);
+
+    if (isValidEmail(email))
+        printf("Valid email\n");
+    else
+        printf("Invalid email\n");
+
+    return 0;
+}
